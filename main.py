@@ -49,10 +49,8 @@ while game_is_on:
         ball.change_direction("y")
 
     # Ball interaction with paddles. Avoid checking again while the ball leaves.
-    if (right_paddle.distance(ball) < 40 and ball.xcor() > SCREEN_WIDTH / 2 - 60 and (
-            90 >= ball.heading() or ball.heading() >= 270)) \
-            or (
-            left_paddle.distance(ball) < 40 and ball.xcor() < -(SCREEN_WIDTH / 2 - 60) and 90 <= ball.heading() <= 270):
+    if (right_paddle.distance(ball) < 40 and ball.xcor() > SCREEN_WIDTH / 2 - 60 and (90 >= ball.heading() or ball.heading() >= 270)) \
+            or (left_paddle.distance(ball) < 40 and ball.xcor() < -(SCREEN_WIDTH / 2 - 60) and 90 <= ball.heading() <= 270):
         ball.change_direction("x")
 
     # SCORE
