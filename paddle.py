@@ -13,8 +13,7 @@ class Paddle(Turtle):
         self.shape("square")
         self.color("white")
         self.resizemode("user")
-        self.shapesize(3, 0.8, 1)
-        # but this will add complexity to the code
+        self.shapesize(3, 0.8, 1)  # Puddle is 60x16 pixels
         self.speed("fastest")
 
     # Function for moving up. Takes input the key that should be pressed on screen.
