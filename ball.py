@@ -1,6 +1,6 @@
 from turtle import Turtle
 from random import choice
-
+from screen import SCREEN_HEIGHT, SCREEN_WIDTH
 # Constants
 BALL_SPEED = 10
 
@@ -24,9 +24,9 @@ class Ball(Turtle):
         if axis == "y":
             self.setheading(-old_heading)  # Reverse direction
         else:
-            self.setheading(180 - old_heading)
+            self.setheading(180 - old_heading)  # Reverse direction
 
-        self.tilt(old_heading - self.heading()) # Tilt to remain square
+        self.tilt(old_heading - self.heading())  # Tilt to remain square
         self.move_speed *= 0.9  # Increase move speed everytime the balls bounces
 
     # Function for initializing ball to a random direction.
@@ -39,3 +39,21 @@ class Ball(Turtle):
         self.setheading(init_direction)
         self.tilt(-self.heading())  # Tilt to remain square
         self.move_speed = 0.03  # Reset move speed
+
+    # Function for checking if the ball hit the wall
+    # Avoids checking again while the ball returns
+    def hit_wall(self):
+        if (self.ycor() >= SCREEN_HEIGHT / 2 - 20 and 0 <= self.heading() <= 180) \
+                or (self.ycor() <= -SCREEN_HEIGHT / 2 + 20 and 180 <= self.heading() <= 360):
+            return True
+        else:
+            return False
+
+    # Function for checking if the ball hit a puddle
+    # Avoids checking again while the ball returns
+    def hit_puddle(self, distance_right, distance_left):
+        if (distance_right < 40 and self.xcor() > SCREEN_WIDTH / 2 - 60 and (90 >= self.heading() or self.heading() >= 270)) \
+                or (distance_left < 40 and self.xcor() < -(SCREEN_WIDTH / 2 - 60) and 90 <= self.heading() <= 270):
+            return True
+        else:
+            return False

@@ -16,12 +16,12 @@ class Paddle(Turtle):
         self.shapesize(3, 0.8, 1)  # Puddle is 60x16 pixels
         self.speed("fastest")
 
-    # Function for moving up. Takes input the key that should be pressed on screen.
+    # Function for moving up
     def move_up(self):
         current_x, current_y = self.position()
         self.setpos(current_x, current_y + MOVE_INCREMENTS)  # Move by increments of MOVE_INCREMENTS
 
-    # Function for moving down. Takes input the key that should be pressed on screen.
+    # Function for moving down
     def move_down(self):
         current_x, current_y = self.position()
         self.setpos(current_x, current_y - MOVE_INCREMENTS)  # Move by increments of MOVE_INCREMENTS

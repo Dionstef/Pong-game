@@ -43,36 +43,36 @@ while game_is_on:
     # Ball moving
     ball.move()
 
-    # Ball interaction with wall. Avoid checking again while the ball leaves.
-    if (ball.ycor() >= SCREEN_HEIGHT / 2 - 20 and 0 <= ball.heading() <= 180) \
-            or (ball.ycor() <= -SCREEN_HEIGHT / 2 + 20 and 180 <= ball.heading() <= 360):
+    # Ball interaction with wall
+    if ball.hit_wall():
         ball.change_direction("y")
 
-    # Ball interaction with paddles. Avoid checking again while the ball leaves.
-    if (right_paddle.distance(ball) < 40 and ball.xcor() > SCREEN_WIDTH / 2 - 60 and (90 >= ball.heading() or ball.heading() >= 270)) \
-            or (left_paddle.distance(ball) < 40 and ball.xcor() < -(SCREEN_WIDTH / 2 - 60) and 90 <= ball.heading() <= 270):
+    # Ball interaction with paddles
+    if ball.hit_puddle(ball.distance(right_paddle), ball.distance(left_paddle)):
         ball.change_direction("x")
 
-    # SCORE
-    if ball.xcor() >= SCREEN_WIDTH / 2 - 20 or ball.xcor() <= -(SCREEN_WIDTH / 2 - 20):
-        #  Update score for RIGHT player
-        if ball.xcor() <= -(SCREEN_WIDTH / 2 - 20):
-            score_right.update_score()
-            # Check if RIGHT player wins
-            if score_right.score >= NUMBER_OF_GOALS:
-                score_right.game_over("RIGHT")
-                game_is_on = False
-        #  Update score for LEFT player
-        elif ball.xcor() >= SCREEN_WIDTH / 2 - 20:
-            score_left.update_score()
-            # Check if LEFT player wins
-            if score_left.score >= NUMBER_OF_GOALS:
-                score_left.game_over("LEFT")
-                game_is_on = False
-
+    # Check if a player scored
+    if ball.xcor() <= -(SCREEN_WIDTH / 2 - 20):  # Check for RIGHT player
+        score_right.update_score()    # Update score for RIGHT player
         # Return ball to initial position and initialize random direction
         ball.init_random_direction()
         screen.update()
         time.sleep(1)  # Pause after each goal
+
+        if score_right.score >= NUMBER_OF_GOALS:  # Check if RIGHT player wins
+            score_right.game_over("RIGHT")
+            game_is_on = False
+
+    elif ball.xcor() >= SCREEN_WIDTH / 2 - 20:  # Check for LEFT player
+        score_left.update_score()
+        # Return ball to initial position and initialize random direction
+        ball.init_random_direction()
+        screen.update()
+        time.sleep(1)  # Pause after each goal
+
+        if score_left.score >= NUMBER_OF_GOALS:  # Check if LEFT player wins
+            score_left.game_over("LEFT")
+            game_is_on = False
+
 
 screen.exitonclick()
