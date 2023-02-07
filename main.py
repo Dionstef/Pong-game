@@ -15,7 +15,7 @@ create_dashed_line()
 right_paddle = Paddle(SCREEN_WIDTH / 2 - 40, 0)
 left_paddle = Paddle(-(SCREEN_WIDTH / 2 - 40), 0)
 
-# Set buttons for movement of puddles
+# Set buttons for movement of paddles
 # RIGHT player
 screen.onkeypress(right_paddle.move_up, "Up")
 screen.onkeypress(right_paddle.move_down, "Down")
@@ -37,8 +37,8 @@ while game_is_on:
     time.sleep(ball.move_speed)  # Adds small delay and controls move speed
 
     # Avoid paddles leaving the screen
-    left_paddle.bound_puddle()
-    right_paddle.bound_puddle()
+    left_paddle.bound_paddle()
+    right_paddle.bound_paddle()
 
     # Ball moving
     ball.move()
@@ -48,7 +48,7 @@ while game_is_on:
         ball.change_direction("y")
 
     # Ball interaction with paddles
-    if ball.hit_puddle(ball.distance(right_paddle), ball.distance(left_paddle)):
+    if ball.hit_paddle(ball.distance(right_paddle), ball.distance(left_paddle)):
         ball.change_direction("x")
 
     # Check if a player scored

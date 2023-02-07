@@ -22,12 +22,12 @@ class Ball(Turtle):
     def change_direction(self, axis):
         old_heading = self.heading()
         if axis == "y":
-            self.setheading(-old_heading)  # Reverse direction
+            self.setheading(-old_heading)  # Reverse direction when hitting a wall
         else:
-            self.setheading(180 - old_heading)  # Reverse direction
+            self.setheading(180 - old_heading)  # Reverse direction when hitting a paddle
+            self.move_speed *= 0.9  # Increase move speed everytime the balls hits a paddle
 
         self.tilt(old_heading - self.heading())  # Tilt to remain square
-        self.move_speed *= 0.9  # Increase move speed everytime the balls bounces
 
     # Function for initializing ball to a random direction.
     # Not too steep (90 deg or 270 deg) or straight to the players (0 deg or 180 deg)
@@ -49,9 +49,9 @@ class Ball(Turtle):
         else:
             return False
 
-    # Function for checking if the ball hit a puddle
+    # Function for checking if the ball hit a paddle
     # Avoids checking again while the ball returns
-    def hit_puddle(self, distance_right, distance_left):
+    def hit_paddle(self, distance_right, distance_left):
         if (distance_right < 40 and self.xcor() > SCREEN_WIDTH / 2 - 60 and (90 >= self.heading() or self.heading() >= 270)) \
                 or (distance_left < 40 and self.xcor() < -(SCREEN_WIDTH / 2 - 60) and 90 <= self.heading() <= 270):
             return True

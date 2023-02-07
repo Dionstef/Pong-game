@@ -13,7 +13,7 @@ class Paddle(Turtle):
         self.shape("square")
         self.color("white")
         self.resizemode("user")
-        self.shapesize(3, 0.8, 1)  # Puddle is 60x16 pixels
+        self.shapesize(3, 0.8, 1)  # Paddle is 60x16 pixels
         self.speed("fastest")
 
     # Function for moving up
@@ -26,8 +26,8 @@ class Paddle(Turtle):
         current_x, current_y = self.position()
         self.setpos(current_x, current_y - MOVE_INCREMENTS)  # Move by increments of MOVE_INCREMENTS
 
-    # Function for restricting puddle within the screen
-    def bound_puddle(self):
+    # Function for restricting paddle within the screen
+    def bound_paddle(self):
         if self.ycor() >= SCREEN_HEIGHT / 2 - 40:  # Upper boundary
             self.sety(SCREEN_HEIGHT / 2 - 40)
         if self.ycor() <= -SCREEN_HEIGHT / 2 + 40:  # Lower boundary
